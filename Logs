@@ -1,0 +1,31 @@
+package me.silverbeast.logging.Commands;
+
+import me.silverbeast.logging.Logging;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+public class Logs implements CommandExecutor {
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (sender instanceof Player) {
+            String loc = Logging.loc;
+            String playerName = Logging.playerName;
+            String _state_ = Logging._state_;
+            String ip =Logging.ip;
+            Player player1 = Logging.player1;
+
+            Player player = (Player) sender;
+            if (player == player1) {
+                player.sendMessage(ChatColor.AQUA + playerName + ChatColor.WHITE + ": logged in at " + loc + " with ip of [" + ip +"] and is currently " + _state_ + ".");
+            }
+            else {
+                player.sendMessage("We don't have your logs.");
+            }
+        }
+        return true;
+    }
+}
