@@ -1,0 +1,38 @@
+package me.silverbeast.logging;
+
+import me.silverbeast.logging.Commands.Logs;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import javax.xml.stream.Location;
+
+public final class Logging extends JavaPlugin {
+    public static String playerName;
+    public static String _state_;
+    public static String ip;
+    public static String loc;
+    public static Player player1;
+
+    @Override
+    public void onEnable() {
+        // Plugin startup logic
+        getCommand("logs").setExecutor(new Logs());
+    }
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        player1 = event.getPlayer();
+        playerName = player1.getName();
+        ip = player1.getAddress().getHostName();
+        Location location = (Location) player1.getLocation();
+        loc = location.toString();
+
+        if (!player1.isBanned()) {
+            _state_ = "unbanned";
+        }
+        else {
+            _state_ = "banned";
+        }
+    }
+}
